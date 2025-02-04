@@ -1,15 +1,6 @@
 "use client";
 
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Search,
-  Settings,
-  Component,
-  Type,
-  Upload,
-} from "lucide-react";
+import { Component, Type, Upload } from "lucide-react";
 
 import {
   Sidebar,
@@ -45,15 +36,7 @@ const items = [
 ];
 
 export function AppSidebar() {
-  const {
-    state,
-    open,
-    setOpen,
-    openMobile,
-    setOpenMobile,
-    isMobile,
-    toggleSidebar,
-  } = useSidebar();
+  const { setOpen } = useSidebar();
 
   // Ensure sidebar is collapsed on initial page load
   useEffect(() => {
