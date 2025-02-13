@@ -24,7 +24,7 @@ export const CanvasProvider = ({ children }) => {
   const [selectedId, setSelectedId] = useState("");
   const [elements, setElements] = useState([]);
 
-  const { color, setColor } = useColorPicker();
+  const { color } = useColorPicker();
 
   useEffect(() => {
     if (canvasRef.current && containerRef.current && !canvas) {

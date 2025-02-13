@@ -20,15 +20,9 @@ import { useCanvas } from "@/contexts/CanvasContext";
 const PropertiesMenu = () => {
   const { setSelectedId, elements } = useCanvas();
 
-  const groupEle = [];
+  const n = elements.length;
 
-  let n = elements.length;
-
-  for (let i = 0; i < n; i++) {
-    let type = elements[i].type;
-    let id = elements[i].id;
-    groupEle.push({ type, id });
-  }
+  const groupEle = elements.map(({ type, id }) => ({ type, id }));
 
   return (
     <Menubar>
@@ -39,8 +33,8 @@ const PropertiesMenu = () => {
         <SelectContent>
           <SelectGroup>
             <SelectLabel>Objects</SelectLabel>
-            {groupEle.map((obj, index) => (
-              <SelectItem value={obj.id} key={index}>
+            {groupEle.map((obj) => (
+              <SelectItem value={obj.id} key={obj.id}>
                 {obj.type}
               </SelectItem>
             ))}
