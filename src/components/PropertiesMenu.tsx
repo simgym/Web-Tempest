@@ -20,8 +20,6 @@ import { useCanvas } from "@/contexts/CanvasContext";
 const PropertiesMenu = () => {
   const { setSelectedId, elements } = useCanvas();
 
-  const n = elements.length;
-
   const groupEle = elements.map(({ type, id }) => ({ type, id }));
 
   return (
