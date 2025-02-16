@@ -25,6 +25,7 @@
     "react-color": "^2.19.3",
     "react-dom": "^19.0.0",
     "react-resizable-panels": "^2.1.7",
+    "reactcss": "^1.2.3",
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"
   },

@@ -18,7 +18,7 @@ const ColorPicker = () => {
     setDisplayColorPicker(false);
   };
 
-  const handleChange = (newColor) => {
+  const handleChange = (newColor: { hex: string }) => {
     setColor(newColor.hex);
   };
 
@@ -29,7 +29,7 @@ const ColorPicker = () => {
         width: "72px",
         height: "14px",
         borderRadius: "2px",
-        background: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})`,
+        background: color,
       },
       swatch: {
         padding: "5px",
