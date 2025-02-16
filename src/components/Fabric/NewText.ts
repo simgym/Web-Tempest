@@ -1,7 +1,7 @@
-import { IText } from "fabric";
+import { IText, Canvas } from "fabric";
 
 // FOR CREATING HEADING
-export const createHeading = (canvas) => {
+export const createHeading = (canvas: Canvas | null) => {
   if (!canvas) return; // Wait until canvas is initialized
 
   const text = new IText("What would you like to search ?", {
@@ -31,7 +31,7 @@ export const createHeading = (canvas) => {
 
 // FOR CREATING SUB HEADING
 
-export const createSubHeading = (canvas) => {
+export const createSubHeading = (canvas: Canvas | null) => {
   if (!canvas) return; // Wait until canvas is initialized
 
   const text = new IText("What would you like to search ?", {
@@ -61,7 +61,7 @@ export const createSubHeading = (canvas) => {
 
 // FOR CREATING BODY TEXT
 
-export const createBodyText = (canvas) => {
+export const createBodyText = (canvas: Canvas | null) => {
   if (!canvas) return; // Wait until canvas is initialized
 
   const text = new IText("What would you like to search ?", {
