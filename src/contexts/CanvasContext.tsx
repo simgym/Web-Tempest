@@ -141,6 +141,7 @@ export const CanvasProvider: React.FC<CanvasProviderProps> = ({ children }) => {
       });
       canvas.renderAll();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [canvas, selectedId, color]);
 
   return (
