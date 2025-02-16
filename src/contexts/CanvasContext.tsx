@@ -66,6 +66,7 @@ export const CanvasProvider: React.FC<CanvasProviderProps> = ({ children }) => {
         initCanvas.dispose(); // cleanup on unmount
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -88,8 +89,11 @@ export const CanvasProvider: React.FC<CanvasProviderProps> = ({ children }) => {
     console.log("selected obj id is : ", selectedId);
 
     if (canvas) {
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
       const handleSelection = (event: any) => {
         setSelected(true); // for opening prop menu
+
+        console.log("check for event type in handleSelection", event);
 
         if (event.selected.length > 0) {
           const selectedObject = event.selected[0]; //  get selected object

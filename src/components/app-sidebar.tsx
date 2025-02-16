@@ -44,6 +44,8 @@ export function AppSidebar() {
   // Ensure sidebar is collapsed on initial page load
   useEffect(() => {
     setOpen(false);
+    console.log(setOpen);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const addButtonHandler = () => {
