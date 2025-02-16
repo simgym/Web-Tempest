@@ -8,21 +8,43 @@ import React, {
   useState,
   useEffect,
   useRef,
+  ReactNode,
 } from "react";
 
-import { Canvas } from "fabric";
+import { Canvas, FabricObject } from "fabric";
 
 import { useColorPicker } from "./ColorPickerContext";
 
-const CanvasContext = createContext();
+interface CanvasContextType {
+  canvas: Canvas | null;
+  setCanvas: React.Dispatch<React.SetStateAction<Canvas | null>>;
+  canvasRef: React.RefObject<HTMLCanvasElement>;
+  containerRef: React.RefObject<HTMLDivElement>;
+  selected: boolean;
+  setSelected: React.Dispatch<React.SetStateAction<boolean>>;
+  selectedId: string;
+  setSelectedId: React.Dispatch<React.SetStateAction<string>>;
+  elements: FabricObject[];
+  setElements: React.Dispatch<React.SetStateAction<FabricObject[]>>;
+}
 
-export const CanvasProvider = ({ children }) => {
-  const canvasRef = useRef(null);
-  const containerRef = useRef(null);
-  const [canvas, setCanvas] = useState(null);
-  const [selected, setSelected] = useState(false);
-  const [selectedId, setSelectedId] = useState("");
-  const [elements, setElements] = useState([]);
+const CanvasContext = createContext<CanvasContextType | null>(null);
+
+interface CanvasProviderProps {
+  children: ReactNode;
+}
+
+interface CustomFabricObject extends FabricObject {
+  id: string; // ensuring that each object will haev id property
+}
+
+export const CanvasProvider: React.FC<CanvasProviderProps> = ({ children }) => {
+  const canvasRef = useRef<HTMLCanvasElement>(null!);
+  const containerRef = useRef<HTMLDivElement>(null!);
+  const [canvas, setCanvas] = useState<Canvas | null>(null);
+  const [selected, setSelected] = useState<boolean>(false);
+  const [selectedId, setSelectedId] = useState<string>("");
+  const [elements, setElements] = useState<FabricObject[]>([]);
 
   const { color } = useColorPicker();
 
@@ -66,7 +88,7 @@ export const CanvasProvider = ({ children }) => {
     console.log("selected obj id is : ", selectedId);
 
     if (canvas) {
-      const handleSelection = (event) => {
+      const handleSelection = (event: any) => {
         setSelected(true); // for opening prop menu
 
         if (event.selected.length > 0) {
@@ -92,7 +114,9 @@ export const CanvasProvider = ({ children }) => {
 
         console.log("getObjects will provide : ", canvas.getObjects());
 
-        const selectedElement = elements.find((obj) => obj.id === selectedId);
+        const selectedElement = elements.find(
+          (obj) => (obj as CustomFabricObject).id === selectedId
+        );
 
         if (selectedElement) {
           console.log("Applying color to object:", selectedElement);
@@ -127,6 +151,7 @@ export const CanvasProvider = ({ children }) => {
         selectedId,
         setSelectedId,
         elements,
+        setElements,
       }}
     >
       {children}
@@ -134,4 +159,10 @@ export const CanvasProvider = ({ children }) => {
   );
 };
 
-export const useCanvas = () => useContext(CanvasContext);
+export const useCanvas = () => {
+  const context = useContext(CanvasContext);
+  if (!context) {
+    throw new Error("useCanvas must be used within a CanvasProvider");
+  }
+  return context;
+};
